@@ -1,0 +1,3 @@
+LayerID, SRAM IFMAP Start Cycle, SRAM IFMAP Stop Cycle, SRAM IFMAP Reads, SRAM Filter Start Cycle, SRAM Filter Stop Cycle, SRAM Filter Reads, SRAM OFMAP Start Cycle, SRAM OFMAP Stop Cycle, SRAM OFMAP Writes, DRAM IFMAP Start Cycle, DRAM IFMAP Stop Cycle, DRAM IFMAP Reads, DRAM Filter Start Cycle, DRAM Filter Stop Cycle, DRAM Filter Reads, DRAM OFMAP Start Cycle, DRAM OFMAP Stop Cycle, DRAM OFMAP Writes,
+0, 257.0, 6994.0, 1098075, 1.0, 3919.0, 34848, 511.0, 7293.0, 580800, -15138.0, -1.0, 150528, -3537.0, -1.0, 34848, 2947.0, 8279.0, 580927,
+1, 257.0, 20997.0, 836352, 1.0, 20749.0, 884736, 511.0, 21251.0, 433664, -6881.0, -1.0, 64896, -6550.0, 19859.0, 884736, 11308.0, 22847.0, 433791,
