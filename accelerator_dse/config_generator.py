@@ -13,10 +13,10 @@ def generate_config(array_h, array_w, ifmap_kb, filter_kb, ofmap_kb):
         IfmapOffset:    0
         FilterOffset:   10000000
         OfmapOffset:    20000000
-        Bandwidth:      10
+        Bandwidth:      20
         Dataflow:       ws
         MemoryBanks:    1
 
         [run_presets]
-        InterfaceBandwidth: CALC
+        InterfaceBandwidth: USER
         """

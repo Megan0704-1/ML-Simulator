@@ -35,10 +35,10 @@ def main():
     print(f"accelerator type chosen: {args.acc_type}")
 
     acc_type = DATA_CENTER_SHAPES if args.acc_type == "data" else MOBILE_SHAPES
+    filter_sizekb = 512 if args.acc_type == "data" else 640
 
     for (h,w), (_ifmap, _ofmap) in product(acc_type, MEMORY_SPLITS):
         # 1mb = 1024 kb
-        filter_sizekb = (h*w*4) // 1024
         remaining_kb = 1024 - filter_sizekb
 
         if remaining_kb <= 0: continue
@@ -53,6 +53,8 @@ def main():
 
         cost = run_sim(h, w, ifmap_sizekb, filter_sizekb, ofmap_sizekb, config_content, config_id)
 
+        print(f"cost: {cost}\n====\n\n\n")
+        print(f"cost < best cost? {cost < best_cost}")
         if cost < best_cost:
             best_cost = cost
             best_config = config_content
