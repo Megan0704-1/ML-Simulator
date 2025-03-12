@@ -12,3 +12,6 @@ topologies/*.zip
 */.DS_Store
 */*/.DS_Store
 */*/*/.DS_Store
+
+*/results/scale_*
+*/configs/config_*

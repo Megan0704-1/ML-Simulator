@@ -1,13 +1,11 @@
 # For data-center accelerator
 DATA_CENTER_SHAPES = [
-    (256, 256), (128, 512), (512, 128), (1024, 64), (64, 1024)
+    (256, 256), (128, 512), (512, 128)
 ]
 
 # For mobile accelerator
 MOBILE_SHAPES = [
-    (16, 16), (16, 32), (32, 16),
-    (32, 32), (32, 64), (64, 32),
-    (64, 64)
+    (32, 32), (16, 64), (64, 16),
 ]
 
 # Memory splits (IFMAP %, OFMAP %)

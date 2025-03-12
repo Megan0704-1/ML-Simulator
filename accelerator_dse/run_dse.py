@@ -11,7 +11,7 @@ def run_sim(h, w, ifsize, filtsize, ofsize, config_content, config_id) :
     config_path = f"configs/config_{config_id}.cfg"
     result_path = f"results/"
     report_path = f"results/scale_run_{h}x{w}_ifmap{ifsize}_filter{filtsize}_ofmap{ofsize}"
-    topo = "/scratch/megankuo/Project3/ML-Simulator/topologies/dnn/dnn_layers.csv"
+    topo = "/home/local/ASURITE/megan/test/mla/ML-Simulator/topologies/dnn/dnn_layers.csv"
 
     with open(config_path, "w") as fh:
         fh.write(config_content)
@@ -35,29 +35,32 @@ def main():
     print(f"accelerator type chosen: {args.acc_type}")
 
     acc_type = DATA_CENTER_SHAPES if args.acc_type == "data" else MOBILE_SHAPES
-    filter_sizekb = 512 if args.acc_type == "data" else 640
+    filter_sizekb = 864
+    portion = [0.5, 0.6, 0.7, 0.8, 0.9, 1]
 
     for (h,w), (_ifmap, _ofmap) in product(acc_type, MEMORY_SPLITS):
-        # 1mb = 1024 kb
-        remaining_kb = 1024 - filter_sizekb
+        for p in portion:
+            filter_size = int(filter_sizekb * p)
+            # 1mb = 1024 kb
+            remaining_kb = 1024 - filter_size
 
-        if remaining_kb <= 0: continue
+            if remaining_kb <= 0: continue
 
-        ifmap_sizekb = int(remaining_kb * _ifmap / 100)
-        ofmap_sizekb = int(remaining_kb * _ofmap / 100)
+            ifmap_sizekb = int(remaining_kb * _ifmap / 100)
+            ofmap_sizekb = int(remaining_kb * _ofmap / 100)
 
-        config_content = generate_config(h, w, ifmap_sizekb, filter_sizekb, ofmap_sizekb)
-        config_id = f"{h}x{w}_if{ifmap_sizekb}_fl{filter_sizekb}_of{ofmap_sizekb}"
+            config_content = generate_config(h, w, ifmap_sizekb, filter_size, ofmap_sizekb)
+            config_id = f"{h}x{w}_if{ifmap_sizekb}_fl{filter_size}_of{ofmap_sizekb}"
 
-        print(f"storing config id: {config_id}")
+            print(f"storing config id: {config_id}")
 
-        cost = run_sim(h, w, ifmap_sizekb, filter_sizekb, ofmap_sizekb, config_content, config_id)
+            cost = run_sim(h, w, ifmap_sizekb, filter_size, ofmap_sizekb, config_content, config_id)
 
-        print(f"cost: {cost}\n====\n\n\n")
-        print(f"cost < best cost? {cost < best_cost}")
-        if cost < best_cost:
-            best_cost = cost
-            best_config = config_content
+            print(f"cost: {cost}\n====\n\n\n")
+            print(f"cost < best cost? {cost < best_cost}")
+            if cost < best_cost:
+                best_cost = cost
+                best_config = config_content
     print("Best cost: ")
     print(best_cost)
     print("Best config: ")
